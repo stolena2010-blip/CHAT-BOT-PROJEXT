@@ -1,8 +1,8 @@
-# 📋 יומן מימוש הפרויקט — Implementation Log
+# � יומן מימוש הפרויקט — Implementation Log
 
 ## סיכום כללי
 
-הפרויקט הוא **צ'אטבוט גיוס מבוסס Multi-Agent AI** שמנהל שיחות SMS עם מועמדים למשרת Python Developer. המערכת בנויה מ-4 סוכני AI שעובדים ביחד, עם חיבור למסד נתונים SQL, מאגר ידע וקטורי (ChromaDB), וממשק משתמש Streamlit.
+הפרויקט הוא **צ'אטבוט גיוס מבוסס Multi-Agent AI** של **Hell Corp** 🔥 שמנהל שיחות SMS עם מועמדים למשרת Python Developer בסניף המעגל השביעי. המערכת בנויה מ-4 סוכני AI שעובדים ביחד, עם חיבור למסד נתונים SQL, מאגר ידע וקטורי (ChromaDB), וממשק משתמש Streamlit.
 
 ---
 
@@ -333,3 +333,22 @@ python -m app.modules.evaluation.evaluation
 - ה-fine-tuning ל-`gpt-4.1-mini` לא שיפר מספיק
 
 **הוחלט לחזור ל-GPT-4o** שנותן את התוצאות הטובות ביותר.
+
+---
+
+## Hell Corp Theme — טאצ' אישי 🔥
+
+### מה נעשה:
+נוסף נושא הומוריסטי "Hell Corp" לכל הפרויקט כדי לתת לו אופי ייחודי:
+
+1. **Main Agent** — הטון שונה ל-"darkly humorous", עם בדיחות אש עדינות
+2. **Info Advisor** — "we don't bite... much 😈"
+3. **Scheduling Advisor** — "even demons need rest" (לגבי ימי שבת ושני)
+4. **Streamlit UI** — כותרת "🔥 Hell Corp — Recruitment Chatbot", הודעה פותחת "Welcome, mortal!"
+
+### הודעות מיוחדות:
+- **קביעת ראיון מוצלחת** → "Welcome to Hell 🔥"
+- **מועמד לא מעוניין** → "Maybe you'll have better luck in Paradise 😇"
+
+### למה ככה:
+מוסיף טאצ' אישי ויצירתי לפרויקט, תוך שמירה על הפונקציונליות המלאה.

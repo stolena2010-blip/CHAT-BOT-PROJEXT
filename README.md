@@ -1,6 +1,6 @@
-# GenAI Project — SMS Recruitment Chatbot
+# 🔥 Hell Corp — SMS Recruitment Chatbot
 
-A multi-agent AI chatbot that conducts SMS conversations with job candidates for a **Python Developer** position. The bot gathers information, answers questions, and schedules interviews — all autonomously.
+A multi-agent AI chatbot that conducts SMS conversations with job candidates for a **Python Developer** position at **Hell Corp's 7th Circle Branch**. The bot gathers information, answers questions, and schedules interviews — all autonomously, with a devilish sense of humor.
 
 ## Project Purpose
 
@@ -9,6 +9,10 @@ Automate the initial recruitment screening process using a system of specialized
 - **Info Advisor** — answers candidate questions using RAG (job description in ChromaDB)
 - **Scheduling Advisor** — finds available interview slots via SQL database (function calling)
 - **Exit Advisor** — detects when a candidate is disinterested (fine-tuned model)
+
+### Personal Touch 😈
+- When an interview is booked → **"Welcome to Hell 🔥"**
+- When the candidate is not interested → **"Maybe you'll have better luck in Paradise 😇"**
 
 ## Models Used
 

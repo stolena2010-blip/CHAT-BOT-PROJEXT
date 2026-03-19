@@ -5,9 +5,9 @@ A multi-agent AI chatbot that conducts SMS conversations with job candidates for
 ## Project Purpose
 
 Automate the initial recruitment screening process using a system of specialized AI agents:
-- **Main Agent** — orchestrates the conversation and decides the next action
+- **Main Agent** — orchestrates the conversation, screens candidates (experience, frameworks, teamwork, projects, motivation), and decides the next action
 - **Info Advisor** — answers candidate questions using RAG (job description in ChromaDB)
-- **Scheduling Advisor** — finds available interview slots via SQL database (function calling)
+- **Scheduling Advisor** — finds available interview slots via SQL database (function calling), confirms before booking
 - **Exit Advisor** — detects when a candidate is disinterested (fine-tuned model)
 
 ### Personal Touch 😈
@@ -88,6 +88,24 @@ streamlit run streamlit_app/streamlit_main.py
 python -m app.modules.evaluation.evaluation
 ```
 Or open `tests/test_evals.ipynb` in Jupyter.
+
+## Evaluation Results
+
+**Accuracy: 88.14%** with GPT-4o on 59 labeled examples (15 conversations).
+
+| Class | Precision | Recall | F1-Score | Support |
+|-------|-----------|--------|----------|--------|
+| continue | 0.91 | 0.80 | 0.85 | 25 |
+| schedule | 0.77 | 0.89 | 0.83 | 19 |
+| end | 1.00 | 1.00 | 1.00 | 15 |
+
+### Model Comparison Experiments
+
+| Model | Type | Accuracy | Notes |
+|-------|------|----------|-------|
+| **GPT-4o** | General | **88.14%** | Best — fast, focused, accurate |
+| o4-mini | Reasoning (small) | 71.19% | Over-reasons simple classifications |
+| GPT-5.4 | General (new) | 62-68% | Not calibrated for existing prompts |
 
 ## Basic Usage Examples
 

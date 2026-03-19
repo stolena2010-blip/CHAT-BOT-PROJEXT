@@ -82,6 +82,23 @@ section[data-testid="stSidebar"] .stMarkdown {
     font-size: 1.05rem;
 }
 
+/* Time slots and numbered lists in chat */
+[data-testid="stChatMessage"] ol,
+[data-testid="stChatMessage"] ul {
+    color: #ffcc00 !important;
+    font-size: 1.1rem !important;
+    font-weight: bold;
+    margin: 10px 0;
+    padding-left: 25px;
+}
+
+[data-testid="stChatMessage"] ol li,
+[data-testid="stChatMessage"] ul li {
+    color: #ffcc00 !important;
+    padding: 4px 0;
+    text-shadow: 0 0 8px rgba(255, 204, 0, 0.3);
+}
+
 /* Info box when conversation ends */
 [data-testid="stAlert"] {
     background: linear-gradient(135deg, #4a1515, #2d0a0a) !important;

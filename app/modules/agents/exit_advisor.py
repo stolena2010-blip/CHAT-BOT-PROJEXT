@@ -34,6 +34,9 @@ The conversation should END if:
 The conversation should CONTINUE if:
 - The candidate is still engaged and asking questions
 - The candidate is considering but hasn't decided
+- The candidate shows hesitation ("I'm not sure", "maybe", "let me think")
+  — this means they need more information, NOT that they want to leave
+- The candidate gives vague or short responses — they may need encouragement
 - There's still an active scheduling discussion
 
 Conversation history:

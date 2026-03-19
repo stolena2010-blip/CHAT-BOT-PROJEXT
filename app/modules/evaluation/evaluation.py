@@ -99,6 +99,11 @@ def evaluate_system(
         from langchain_core.output_parsers import StrOutputParser
 
         exit_rec = "end" if should_end else "continue"
+
+        # Use the Main Agent's full decision prompt for accurate evaluation
+        from langchain_core.prompts import ChatPromptTemplate
+        from langchain_core.output_parsers import StrOutputParser
+
         decision_prompt = ChatPromptTemplate.from_template(
             """You are the Main Agent of an SMS recruitment chatbot for a Python Developer position.
 You must decide what the RECRUITER's next action should be.
@@ -107,20 +112,39 @@ DEFINITIONS:
 - "continue" — The recruiter asks follow-up questions about the candidate's skills,
   answers candidate questions about the role/company, or provides information.
   This is for information-gathering and Q&A phases.
+  IMPORTANT: If the candidate's qualifications/experience have NOT been discussed
+  yet, the answer is always "continue" (ask about their background first).
 - "schedule" — The recruiter proposes specific interview date/time slots,
   confirms a time the candidate suggested, or offers alternative times
-  after a rejection. If the candidate has shown enough interest and experience
-  has been discussed, the recruiter should move to scheduling.
+  after a rejection. Only choose this AFTER qualifications have been discussed.
+  If time slots were offered but the candidate hasn't confirmed a specific time,
+  stay in "schedule" to ask which slot they prefer.
 - "end" — The recruiter wraps up the conversation because:
-  * An interview was successfully confirmed
+  * An interview was successfully confirmed (specific date AND time agreed)
+  * The candidate proposed a specific time (recruiter confirms and wraps up)
+  * The candidate confirmed a proposed time ("Yes", "Absolutely", etc.)
   * The candidate explicitly said they're not interested
   * The candidate asked to stop contact
+
+CRITICAL RULES:
+1. When a candidate CONFIRMS a specific proposed interview time (e.g. "Yes,
+   absolutely!", "That works!") AND has no further questions → "end"
+2. When a candidate PROPOSES a specific time themselves (e.g. "Monday at 3 PM
+   works") while scheduling is in progress AND has no further questions → "end"
+3. EXCEPTION: If the candidate confirms/proposes a time BUT ALSO asks a
+   question (e.g. "Tuesday works, but can I get more details?") → "continue"
+   (answer the question first, the time confirmation stands)
+4. When a candidate DECLINES a time slot but has NOT said they're uninterested
+   in the position → "schedule" (offer alternative times, do NOT end)
+5. "I'll reach out", "I'll be in touch" while declining times does NOT mean
+   end — stay in "schedule" unless they explicitly say they're not interested
+6. Qualifications discussed + candidate interested → "schedule"
 
 EXAMPLES:
 
 Example 1:
 Conversation: Recruiter asked about experience. Candidate: "I have 5 years with Python and Django"
-→ schedule (candidate is qualified, time to propose interview)
+→ schedule (candidate shared qualifications, move to scheduling)
 
 Example 2:
 Conversation: Recruiter proposed Wed 10AM or Thu 2PM. Candidate: "Those don't work for me"
@@ -131,16 +155,24 @@ Conversation: Candidate: "What technologies does the stack use?"
 → continue (answering a question, still in info phase)
 
 Example 4:
-Conversation: Recruiter confirmed interview. Candidate: "Sounds great, see you then"
-→ end (interview booked, conversation done)
+Conversation: Recruiter proposed Tuesday. Candidate: "Yes, absolutely!"
+→ end (candidate confirmed the proposed time)
 
 Example 5:
 Conversation: Candidate: "Please remove me from your list"
 → end (candidate not interested)
 
 Example 6:
-Conversation: Recruiter asked about Python. Candidate: "I have 3 years with Django and Flask."
-→ schedule (basic qualification established, move to scheduling)
+Conversation: Recruiter proposed times. Candidate: "Monday at 3 PM is good."
+→ end (candidate confirmed a specific time, interview is set)
+
+Example 7:
+Conversation: Recruiter proposed times. Candidate: "I'm unavailable, I'll reach out later."
+→ schedule (candidate declined but didn't say not interested — offer alternatives)
+
+Example 8:
+Conversation: Recruiter asked about cloud experience. Candidate: "I've worked a bit with AWS but no GCP."
+→ schedule (candidate responded to follow-up, enough info to schedule)
 
 Exit Advisor recommendation: {exit_recommendation}
 
